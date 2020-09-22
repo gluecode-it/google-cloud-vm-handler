@@ -1,7 +1,4 @@
 import { EventEmitter } from "events";
-const Compute = require("@google-cloud/compute");
-
-require("dotenv").config();
 
 enum Event {
   START = "START",
@@ -9,11 +6,27 @@ enum Event {
   STOP = "STOP",
 }
 
+interface AccessConfig {
+  natIP: string
+}
+interface NetworkInterface {
+  accessConfigs: AccessConfig[]
+}
+
+interface MetaData {
+  networkInterfaces: NetworkInterface[]
+}
+
+export interface GoogleVM {
+  start(): Promise<any>
+  stop(): Promise<any>
+  waitFor(state: "RUNNING", callback: (err: Error | null, metadata: MetaData) => void): any
+}
+
 export class VmHandler {
   private emitter = new EventEmitter();
-  private vm: any;
 
-  constructor(private vm: any) {}
+  constructor(private vm: GoogleVM) {}
 
   onStart(callback: () => void) {
     this.emitter.on(Event.START, callback);
@@ -28,11 +41,11 @@ export class VmHandler {
   }
 
   async start() {
-    this.vm.waitFor("RUNNING", (err: Error, metadata: any) => {
+    this.vm.waitFor("RUNNING", (err: Error | null, metadata: MetaData) => {
       if (!err)
         this.emitter.emit(
           Event.STARTED,
-          metadata?.networkInterfaces[0].accessConfigs[0].natIP
+          metadata.networkInterfaces[0].accessConfigs[0].natIP
         );
     });
     await this.vm.start();
