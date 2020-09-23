@@ -20,7 +20,7 @@ interface MetaData {
 export interface GoogleVM {
   start(): Promise<any>
   stop(): Promise<any>
-  waitFor(state: "RUNNING", callback: (err: Error | null, metadata: MetaData) => void): any
+  waitFor(state: "RUNNING", callback: (err: Error | null, metadata?: MetaData) => void): any
 }
 
 export class VmHandler {
@@ -41,17 +41,23 @@ export class VmHandler {
   }
 
   async start() {
-    this.vm.waitFor("RUNNING", (err: Error | null, metadata: MetaData) => {
-      if (!err)
-        this.emitter.emit(
-          Event.STARTED,
-          metadata.networkInterfaces[0].accessConfigs[0].natIP
-        );
+    try {
+    this.vm.waitFor("RUNNING", (err: Error | null, metadata?: MetaData) => {
+      if (err) throw err;
+      this.emitter.emit(
+        Event.STARTED,
+        metadata?.networkInterfaces[0].accessConfigs[0].natIP
+      );
     });
+  } catch(err) {
+    throw err;
+  }
     await this.vm.start();
+    this.emitter.emit(Event.START);
   }
 
   async stop() {
     await this.vm.stop();
+    this.emitter.emit(Event.STOP);
   }
 }

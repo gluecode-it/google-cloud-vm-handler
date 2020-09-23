@@ -21,7 +21,7 @@ describe("VmHandler", () => {
   });
 
   describe("waitFor()", () => {
-    it("should call onStarted function", (done) => {
+    it("should return ip", (done) => {
       const expectedIP = '1.1.1.1'
       const mockVM: Partial<GoogleVM> = {
         start: jest.fn(),
@@ -46,4 +46,65 @@ describe("VmHandler", () => {
     });
   });
   
+  
+  describe("stop()", () => {
+    it("should call vm's stop function", () => {
+      const mockVM: Partial<GoogleVM> = {
+        stop: jest.fn(),
+      }
+      const handler = new VmHandler(mockVM as GoogleVM);
+      handler.stop();
+      expect(mockVM.stop).toBeCalled()
+    });
+  });
+
+  describe("onStart()", () => {
+    it("should call callback of onStart function", (done) => {
+      const mockVM: Partial<GoogleVM> = {
+        start: jest.fn(),
+        waitFor: jest.fn(),
+      }
+      const handler = new VmHandler(mockVM as GoogleVM);
+      const callback = jest.fn();
+      handler.onStart(callback);
+      handler.start();
+      setTimeout(() => {
+        expect(callback).toBeCalled();
+        done();
+      }, 1);
+    });
+  })
+
+  describe("onStop()", () => {
+    it("should call callback of onStop function", (done) => {
+      const mockVM: Partial<GoogleVM> = {
+        stop: jest.fn(),
+      }
+      const handler = new VmHandler(mockVM as GoogleVM);
+      const callback = jest.fn();
+      handler.onStop(callback);
+      handler.stop();
+      setTimeout(() => {
+        expect(callback).toBeCalled();
+        done();
+      }, 1);
+    });
+  })
+
+  describe("waitFor()", () => {
+    it("should throw an error", async () => {
+      const mockVM: Partial<GoogleVM> = {
+        start: jest.fn(),
+        waitFor: (status: string, callback) => {
+          callback(new Error(), undefined);
+        }
+      }
+      const handler = new VmHandler(mockVM as GoogleVM);
+      try { 
+        await handler.start(); 
+        fail('should never come to this point')
+      } catch {};
+    });
+  });
+
 });
