@@ -1,5 +1,5 @@
 {
-  "name": "@gluecode-it/gcs-vm-handler",
+  "name": "@gluecode-it/google-cloud-vm-handler",
   "version": "1.0.0",
   "description": "",
   "main": "babel.config.js",
