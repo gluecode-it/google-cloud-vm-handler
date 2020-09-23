@@ -1,8 +1,7 @@
 name: Release
 'on':
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
 jobs:
   release:
     name: Release
@@ -25,8 +24,3 @@ jobs:
           NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
       - name: Run Jest
         run: npm test
-      - name: 'Release with semantic release'
-        uses: cycjimmy/semantic-release-action@v2
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
