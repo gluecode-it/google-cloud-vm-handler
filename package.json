@@ -2,8 +2,7 @@
   "name": "@gluecode-it/google-cloud-vm-handler",
   "version": "1.0.0",
   "description": "",
-  "main": "babel.config.js",
-  "dependencies": {},
+  "main": "dist/index.js",
   "devDependencies": {
     "@babel/core": "7.11.6",
     "@babel/preset-env": "7.11.5",
@@ -26,7 +25,9 @@
     }
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "dev:test": "jest --coverage --coverage-reporters html --watch-all",
+    "prepublish": "tsc"
   },
   "author": "",
   "license": "ISC"
