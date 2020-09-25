@@ -27,7 +27,7 @@
   "scripts": {
     "test": "jest --coverage",
     "dev:test": "jest --coverage --coverage-reporters html --watch-all",
-    "prepublish": "tsc"
+    "prepare": "tsc"
   },
   "author": "",
   "license": "ISC"
