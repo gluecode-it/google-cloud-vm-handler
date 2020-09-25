@@ -1,5 +1,5 @@
 name: Release
-'on':
+"on":
   push:
     branches:
       - master
@@ -21,12 +21,12 @@ jobs:
       - name: Install dependencies
         run: npm install
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          NPM_TOKEN: "${{ secrets.NPM_TOKEN }}"
       - name: Run Jest
         run: npm test
-      - name: 'Release with semantic release'
+      - name: "Release with semantic release"
         uses: cycjimmy/semantic-release-action@v2
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          NPM_TOKEN: "${{ secrets.NPM_TOKEN }}"
