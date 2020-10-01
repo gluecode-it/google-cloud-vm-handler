@@ -10,10 +10,13 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
           fetch-depth: 0
-      - name: Merge Upstream
-        uses: exions/merge-upstream@v1
+      - name: Create PR to branch
+        uses: gorillio/github-action-sync@master
         with:
-          upstream: gluecode-it/.typescript-repo
-          upstream-branch: master
+          upstream: git@github.com:gluecode-it/.typescript-repo.git
+          upstream_branch: master
           branch: master
-          token: ${{ secrets.GH_PAT }}
+          pr_labels: upstream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          DRY_RUN: false
