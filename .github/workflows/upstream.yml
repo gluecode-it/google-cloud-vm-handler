@@ -1,0 +1,37 @@
+name: Manual Merge Remote Action
+on:
+  workflow_dispatch:
+    inputs:
+      upstream:
+        description: "Upstream repository owner/name."
+        required: true
+        default: "gluecode-it/.typescript-repo" # set the upstream repo
+      upstream-branch:
+        description: "Upstream branch"
+        required: true
+        default: "master"
+      branch:
+        description: "Branch to merge to"
+        required: true
+        default: "base" # set the branch to merge to
+jobs:
+  merge-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
+      - name: Merge Upstream
+        uses: exions/merge-upstream@v1
+        with:
+          upstream: ${{ github.event.inputs.upstream }}
+          upstream-branch: ${{ github.event.inputs.upstream-branch }}
+          branch: ${{ github.event.inputs.branch }}
+          token: ${{ secrets.GH_PAT }}
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@1.0.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          PULL_REQUEST_BRANCH: "master"
