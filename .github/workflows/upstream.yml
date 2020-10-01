@@ -1,19 +1,6 @@
 name: Manual Merge Remote Action
 on:
   workflow_dispatch:
-    inputs:
-      upstream:
-        description: "Upstream repository owner/name."
-        required: true
-        default: "gluecode-it/.typescript-repo" # set the upstream repo
-      upstream-branch:
-        description: "Upstream branch"
-        required: true
-        default: "master"
-      branch:
-        description: "Branch to merge to"
-        required: true
-        default: "base" # set the branch to merge to
 jobs:
   merge-upstream:
     runs-on: ubuntu-latest
