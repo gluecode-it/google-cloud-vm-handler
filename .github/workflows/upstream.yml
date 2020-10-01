@@ -23,15 +23,13 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
           fetch-depth: 0
-      - name: Merge Upstream
-        uses: exions/merge-upstream@v1
+      - name: Create PR to branch
+        uses: gorillio/github-action-sync@master
         with:
-          upstream: ${{ github.event.inputs.upstream }}
-          upstream-branch: ${{ github.event.inputs.upstream-branch }}
-          branch: ${{ github.event.inputs.branch }}
-          token: ${{ secrets.GH_PAT }}
-      - name: pull-request-action
-        uses: vsoch/pull-request-action@1.0.6
+          upstream: git@github.com:gluecode-it/.typescript-repo.git
+          upstream_branch: master
+          branch: master
+          pr_labels: upstream
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          PULL_REQUEST_BRANCH: "master"
+          DRY_RUN: false
