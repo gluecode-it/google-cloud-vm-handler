@@ -13,7 +13,7 @@ jobs:
       - name: Merge Upstream
         uses: exions/merge-upstream@v1
         with:
-          upstream: git@github.com:gluecode-it/.typescript-repo.git
+          upstream: gluecode-it/.typescript-repo
           upstream-branch: master
           branch: master
           token: ${{ secrets.GH_PAT }}
