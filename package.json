@@ -1,7 +1,7 @@
 {
   "name": "@gluecode-it/google-cloud-vm-handler",
   "version": "1.0.0",
-  "description": "",
+  "description": "A wrapper to start and stop google cloud vms with integrated a event handler",
   "main": "dist/src/index.js",
   "devDependencies": {
     "@babel/core": "7.12.3",
@@ -12,7 +12,6 @@
     "@semantic-release/github": "7.1.1",
     "@types/jest": "26.0.15",
     "@types/node": "14.14.2",
-    "babel-jest": "26.6.0",
     "babel-jest": "26.6.0",
     "commitlint": "11.0.0",
     "husky": "4.3.0",
@@ -30,9 +29,9 @@
     "dev:test": "jest --coverage --coverage-reporters html --watch-all",
     "prepare": "tsc"
   },
-	"publishConfig": {
-		"access": "public"
-	},
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "",
   "license": "ISC"
 }
