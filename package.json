@@ -30,6 +30,9 @@
     "dev:test": "jest --coverage --coverage-reporters html --watch-all",
     "prepare": "tsc"
   },
+	"publishConfig": {
+		"access": "public"
+	},
   "author": "",
   "license": "ISC"
 }
