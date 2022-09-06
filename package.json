@@ -4,7 +4,7 @@
   "description": "A wrapper to start and stop google cloud vms with integrated a event handler",
   "main": "dist/src/index.js",
   "devDependencies": {
-    "@babel/core": "7.13.8",
+    "@babel/core": "7.19.0",
     "@babel/preset-env": "7.13.9",
     "@babel/preset-typescript": "7.13.0",
     "@commitlint/cli": "11.0.0",
